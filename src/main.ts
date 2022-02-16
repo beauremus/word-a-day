@@ -47,13 +47,13 @@ function getLocalISOString(date: Date) {
     return `${isoString.slice(0, -1)}${offset > 0 ? '-' : '+'}${String(Math.floor(offsetAbs / 60)).padStart(2, '0')}:${String(offsetAbs % 60).padStart(2, '0')}`;
 }
 
-function getDateNumber() {
-    return Number(getLocalISOString(new Date()).split('T')[0].replaceAll('-', ''));
+function getDateNumber(date: Date = (new Date())) {
+    return Number(getLocalISOString(date).split('T')[0].replaceAll('-', ''));
 }
 
-function getDateBasedItem(list: Array<any>) {
+function getDateBasedItem(list: Array<any>, date?: Date) {
     const randomIndex = Math.floor(
-        seededRandom(getDateNumber(), list.length - 1, 0)
+        seededRandom(getDateNumber(date), list.length - 1, 0)
     );
 
     return list[randomIndex];
@@ -104,10 +104,16 @@ function promptForWord(answer: string, count: number = 1) {
     });
 }
 
-function game() {
-    const word = getDateBasedItem(availableAnswers);
+function game(dateOffset: number = 0) {
+    const setDate = new Date();
+    setDate.setDate(setDate.getDate() + dateOffset);
+
+    const word = getDateBasedItem(
+        availableAnswers,
+        setDate
+    );
 
     promptForWord(word);
 }
 
-game();
+game(Number(process.argv[2]) || 0);
