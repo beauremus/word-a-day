@@ -15,15 +15,21 @@
     "esbuild": "esbuild src/main.ts --bundle --minify --sourcemap=external --outfile=dist/esbuild/main.js",
     "esbuild:dev": "esbuild src/main.ts --bundle --outfile=dist/esbuild/main.js",
     "esbuild:watch": "esbuild src/main.ts --bundle --watch --outfile=dist/esbuild/main.js",
-    "start": "ts-node src/main.ts"
+    "start": "ts-node src/main.ts",
+    "serve": "nodemon server.ts"
   },
   "author": "Beau Harrison <beauharrison@gmail.com>",
   "license": "MIT",
   "devDependencies": {
+    "@types/express": "^4.17.13",
     "@types/inquirer": "^8.2.0",
+    "@types/node": "^17.0.18",
+    "nodemon": "^2.0.15",
     "typescript": "^4.5.5"
   },
   "dependencies": {
-    "inquirer": "^8.2.0"
+    "express": "^4.17.2",
+    "inquirer": "^8.2.0",
+    "pug": "^3.0.2"
   }
 }
