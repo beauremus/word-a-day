@@ -1,5 +1,11 @@
 # Wordle
 
+## Running the game
+
+```bash
+npm start
+```
+
 ## Strategy
 
 Default to native browser tools unless there's a justification for an outside tool.

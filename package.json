@@ -1,5 +1,5 @@
 {
-  "name": "wordle",
+  "name": "word-a-day",
   "version": "1.0.0",
   "description": "Wordle game clone.",
   "main": "./dist/tsc/main.js",
@@ -9,15 +9,21 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "lint": "eslint src/ --ext .js,.jsx,.ts,.tsx",
     "clean": "rm -rf dist build package",
-    "build": "tsc -p tsconfig.json",
-    "build-all": "npm run clean && npm run build && yarn esbuild",
+    "build": "tsc -p tsconfig.json && npm run statics",
+    "statics": "cp ./public/* ./dist/",
+    "build-all": "npm run clean && npm run build && npm run esbuild",
     "esbuild": "esbuild src/main.ts --bundle --minify --sourcemap=external --outfile=dist/esbuild/main.js",
     "esbuild:dev": "esbuild src/main.ts --bundle --outfile=dist/esbuild/main.js",
-    "esbuild:watch": "esbuild src/main.ts --bundle --watch --outfile=dist/esbuild/main.js"
+    "esbuild:watch": "esbuild src/main.ts --bundle --watch --outfile=dist/esbuild/main.js",
+    "start": "ts-node src/main.ts"
   },
   "author": "Beau Harrison <beauharrison@gmail.com>",
   "license": "MIT",
   "devDependencies": {
+    "@types/inquirer": "^8.2.0",
     "typescript": "^4.5.5"
+  },
+  "dependencies": {
+    "inquirer": "^8.2.0"
   }
 }
