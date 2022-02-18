@@ -10,6 +10,16 @@ npm start
 
 Default to native browser tools unless there's a justification for an outside tool.
 
+### Value added
+
+Wordle is missing the community competition of something like WordsWithFriends.
+Leader boards with ranks and scores are missing. MVP will be a global leader board.
+The Leader boards will have all-time, weekly, and daily scores.
+
+### Future ideas
+
+- [ ] Create leagues for select players to compete against each other.
+
 ## Justifications
 
 ### TypeScript
