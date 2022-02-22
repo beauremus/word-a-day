@@ -1,50 +1,32 @@
-import express, { Request, Response, NextFunction } from 'express';
+import express, { Express } from 'express';
+import { json, urlencoded } from 'body-parser';
+import routes from './controllers';
 
-const app = express();
-const port = 3000;
+const PORT = 3000;
 
-app.set('view engine', 'pug')
+export class Server {
 
-interface LocationWithTimezone {
-    location: string;
-    timezoneName: string;
-    timezoneAbbr: string;
-    utcOffset: number;
-};
+    private app: Express
 
-const getLocationsWithTimezones = (req: Request, res: Response, next: NextFunction) => {
-    let locations: LocationWithTimezone[] = [
-        {
-            location: 'Germany',
-            timezoneName: 'Central European Time',
-            timezoneAbbr: 'CET',
-            utcOffset: 1
-        },
-        {
-            location: 'China',
-            timezoneName: 'China Standard Time',
-            timezoneAbbr: 'CST',
-            utcOffset: 8
-        },
-        {
-            location: 'Argentina',
-            timezoneName: 'Argentina Time',
-            timezoneAbbr: 'ART',
-            utcOffset: -3
-        },
-        {
-            location: 'Japan',
-            timezoneName: 'Japan Standard Time',
-            timezoneAbbr: 'JST',
-            utcOffset: 9
-        }
-    ];
+    constructor() {
+        this.app = express()
 
-    res.render('index', { body: JSON.stringify(locations)});
-};
+        // Express middleware
+        this.app.set('view engine', 'pug')
+        this.app.use(urlencoded({
+            extended: true
+        }));
+        this.app.use(json());
+        this.app.listen(PORT, () => {
+            console.log(`INFO: Server successfully started at port ${PORT}`);
+        });
 
-app.get('/timezones', getLocationsWithTimezones);
+        routes(this.app);
+    }
 
-app.listen(port, () => {
-    console.log(`Timezones by location application is running on port ${port}.`);
-});
+    getApp() {
+        return this.app
+    }
+}
+
+new Server();
